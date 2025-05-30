@@ -56,6 +56,8 @@
     canvasCopy.appendChild(styleNode);
     var outerHTML =
       canvasCopy.outerHTML || new XMLSerializer().serializeToString(canvasCopy);
+    // fix for SVG which can only contain &#160; NBSP definition
+    outerHTML = outerHTML.replace("&nbsp;", "&#160;");
     var blob = new Blob([outerHTML], { type: "image/svg+xml;charset=utf-8" });
     downloadContent(blob, Tools.boardName + ".svg");
   }
